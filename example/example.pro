@@ -5,7 +5,7 @@ TARGET = example
 TEMPLATE = app
 DEPENDPATH += ../
 INCLUDEPATH += ../
-LIBS += -L../debug \
+LIBS += -L../release \
     -lmeters
 SOURCES += main.cpp
 HEADERS += main.h

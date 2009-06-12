@@ -103,21 +103,21 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 
 	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateScales()));
 
-	needle->setStyle(CoilMeter::StyleNeedle);
+	needle->setNeedleStyle(CoilMeter::StyleNeedle);
 	needle->setWarnValue(0);
 	needle->setAlarmValue(15);
 	needle->setMajorTicks(10);
 	needle->setMinorTicks(2);
 	needle->setValue(0);
 
-	bar->setStyle(CoilMeter::StyleBar);
+	bar->setNeedleStyle(CoilMeter::StyleBar);
 	bar->setWarnValue(-20);
 	bar->setAlarmValue(15);
 	bar->setMajorTicks(10);
 	bar->setMinorTicks(2);
 	bar->setValue(0);
 
-	gradBar->setStyle(CoilMeter::StyleGradientBar);
+	gradBar->setNeedleStyle(CoilMeter::StyleGradientBar);
 	gradBar->setWarnValue(-20);
 	gradBar->setAlarmValue(15);
 	gradBar->setMajorTicks(10);
@@ -125,7 +125,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	gradBar->setValue(0);
 	gradBar->setFlowingGradient(false);
 
-	flowBar->setStyle(CoilMeter::StyleGradientBar);
+	flowBar->setNeedleStyle(CoilMeter::StyleGradientBar);
 	flowBar->setWarnValue(-20);
 	flowBar->setAlarmValue(15);
 	flowBar->setMajorTicks(10);
