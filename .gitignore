@@ -21,3 +21,5 @@
 /release/.gitignore
 /example/release/mainwindow.o
 /release/moc_coilmeter.cpp
+/example/release/.gitignore
+/debug/.gitignore
