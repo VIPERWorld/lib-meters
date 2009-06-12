@@ -130,7 +130,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
 
-	// findest the biggest possible centered rect with an aspect ratio of 4:3
+	// find the biggest possible centered rect with an aspect ratio of 4:3
 	// that fits within current width and height
 	QRect r = findRect(QRect(0, 0, width(), height()));
 	painter.setViewport(r);
@@ -147,7 +147,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	painter.drawRoundRect(scaleBackgroundRect, cornerRadius, cornerRadius);
 	qreal vcenter = 55;
 
-	// the rest (except the overlay) is draw a bit larger to match the proportions of an analog meter
+	// the rest (except the overlay) is drawn a bit larger to match the proportions of an analog meter
 	painter.save();
 	painter.translate(0, 60);
 	painter.scale(4.0/3.0, 4.0/3.0);
