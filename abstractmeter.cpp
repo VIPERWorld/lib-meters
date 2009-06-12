@@ -1,13 +1,12 @@
 #include "abstractmeter.h"
 
-
 AbstractMeter::AbstractMeter()
-	: QWidget(), m_min(0), m_max(100), m_minorTicks(2), m_majorTicks(10), m_value(50), m_warnValue(75), m_alarmValue(90)
+	: QWidget(), _min(0), _max(100), _minorTicks(2), _majorTicks(10), _value(50), _warnValue(75), _alarmValue(90)
 {
 }
 
 AbstractMeter::AbstractMeter(QWidget *parent)
-	: QWidget(parent), m_min(0), m_max(100), m_minorTicks(2), m_majorTicks(10), m_value(50), m_warnValue(75), m_alarmValue(90)
+	: QWidget(parent), _min(0), _max(100), _minorTicks(2), _majorTicks(10), _value(50), _warnValue(75), _alarmValue(90)
 {
 }
 
@@ -17,15 +16,15 @@ AbstractMeter::AbstractMeter(QWidget *parent, qreal min, qreal max)
 	if (min > max)
 		qSwap(min, max);
 
-	m_min = min;
-	m_max = max;
+	_min = min;
+	_max = max;
 
-	qreal range = max - min;
-	m_minorTicks = range / 50;
-	m_majorTicks = range / 10;
-	m_value = 0.5 * range;
-	m_warnValue = 0.75 * range;
-	m_alarmValue = 0.9 * range;
+	qreal range = _max - _min;
+	_minorTicks = range / 50;
+	_majorTicks = range / 10;
+	_value = 0.5 * range;
+	_warnValue = 0.75 * range;
+	_alarmValue = 0.9 * range;
 }
 
 AbstractMeter::~AbstractMeter()
@@ -37,20 +36,45 @@ void AbstractMeter::setRange(qreal min, qreal max)
 	if (min > max)
 		qSwap(min, max);
 
-	m_min = min;
-	m_max = max;
+	_min = min;
+	_max = max;
 
-	m_value = qBound(min, m_value, max);
-	m_warnValue = qBound(min, m_value, max);
-	m_alarmValue = qBound(min, m_value, max);
+	_value = qBound(_min, _value, _max);
+	_warnValue = qBound(_min, _warnValue, _max);
+	_alarmValue = qBound(_min, _warnValue, _max);
 
 	update();
 }
 
+void AbstractMeter::setMinimum(qreal min)
+{
+	setRange(min, _max);
+}
+
+qreal AbstractMeter::minimum() const
+{
+	return _min;
+}
+
+void AbstractMeter::setMaximum(qreal max)
+{
+	setRange(_min, max);
+}
+
+qreal AbstractMeter::maximum() const
+{
+	return _max;
+}
+
 void AbstractMeter::setValue(qreal value)
 {
-	m_value = qBound(m_min, value, m_max);
+	_value = qBound(_min, value, _max);
 	update();
+}
+
+qreal AbstractMeter::value() const
+{
+	return _value;
 }
 
 void AbstractMeter::setValue(int value)
@@ -60,22 +84,42 @@ void AbstractMeter::setValue(int value)
 
 void AbstractMeter::setAlarmValue(qreal alarm)
 {
-	m_alarmValue = qBound(m_min, alarm, m_max);
+	_alarmValue = qBound(_min, alarm, _max);
 	update();
+}
+
+qreal AbstractMeter::alarmValue() const
+{
+	return _alarmValue;
 }
 
 void AbstractMeter::setWarnValue(qreal warn)
 {
-	m_warnValue = qBound(m_min, warn, m_max);
+	_warnValue = qBound(_min, warn, _max);
 	update();
+}
+
+qreal AbstractMeter::warnValue() const
+{
+	return _warnValue;
 }
 
 void AbstractMeter::setMinorTicks(qreal ticks)
 {
-	m_minorTicks = ticks;
+	_minorTicks = ticks;
+}
+
+qreal AbstractMeter::minorTicks() const
+{
+	return _minorTicks;
 }
 
 void AbstractMeter::setMajorTicks(qreal ticks)
 {
-	m_majorTicks = ticks;
+	_majorTicks = ticks;
+}
+
+qreal AbstractMeter::majorTicks() const
+{
+	return _majorTicks;
 }
