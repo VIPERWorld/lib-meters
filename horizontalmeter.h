@@ -3,9 +3,9 @@
 
 #include <QtGui/QWidget>
 
-#include "abstractmeter.h"
+#include "alarmmeter.h"
 
-class LIBMETERSSHARED_EXPORT HorizontalMeter : public AbstractMeter
+class LIBMETERSSHARED_EXPORT HorizontalMeter : public AlarmMeter
 {
     Q_OBJECT
 
@@ -20,7 +20,6 @@ public:
 	void setMarginColor(const QColor &color);
 	void setOverlayEnabled(bool enable);
 	void setMarginEnabled(bool enable);
-	void setNeedleColors(const QColor& normal, const QColor& warn, const QColor& alarm);
 	void setFlowingGradient(bool);
 
 	void setStyle(enum Style);
@@ -40,7 +39,6 @@ private:
 	bool _overlayEnabled;
 	bool _marginEnabled;
 
-	QColor _needleColors[3];
 	bool _flowingGradient;
 
 	void init();

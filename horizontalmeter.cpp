@@ -3,13 +3,13 @@
 #include <QPainter>
 
 HorizontalMeter::HorizontalMeter(QWidget *parent)
-	: AbstractMeter(parent)
+	: AlarmMeter(parent)
 {
 	init();
 }
 
 HorizontalMeter::HorizontalMeter(QWidget *parent, qreal min, qreal max)
-	: AbstractMeter(parent, min, max)
+	: AlarmMeter(parent, min, max)
 {
 	init();
 }
@@ -26,10 +26,6 @@ void HorizontalMeter::init()
 
 	_margin = 10;
 	_marginColor = Qt::black;
-
-	_needleColors[0] = QColor(0, 255, 0, 127);
-	_needleColors[1] = QColor(255, 255, 0, 127);
-	_needleColors[2] = QColor(255, 0, 0, 127);
 
 	_overlayEnabled = true;
 	_marginEnabled = true;
@@ -50,13 +46,6 @@ QSize HorizontalMeter::minimumSizeHint() const
 QSize HorizontalMeter::minimumSize() const
 {
 	return QSize(120, 40);
-}
-
-void HorizontalMeter::setNeedleColors(const QColor& normal, const QColor& warn, const QColor& alarm)
-{
-	_needleColors[0] = normal;
-	_needleColors[1] = warn;
-	_needleColors[2] = alarm;
 }
 
 void HorizontalMeter::setStyle(enum Style style)
@@ -153,21 +142,21 @@ void HorizontalMeter::paintEvent(QPaintEvent *e)
 		QRectF r(p1, p2);
 		QColor color;
 		if (value() < warnValue())
-			color = _needleColors[0];
+			color = valueColor();
 		else if (value() >= warnValue() && value() < alarmValue())
-			color = _needleColors[1];
+			color = warnColor();
 		else
-			color = _needleColors[2];
+			color = alarmColor();
 
 		painter.fillRect(r, color);
 
 	} else if (_style == StyleNeedle) {
 		if (value() < warnValue())
-			pen.setColor(_needleColors[0]);
+			pen.setColor(valueColor());
 		else if (value() >= warnValue() && value() < alarmValue())
-			pen.setColor(_needleColors[1]);
+			pen.setColor(warnColor());
 		else
-			pen.setColor(_needleColors[2]);
+			pen.setColor(alarmColor());
 		pen.setWidth(5);
 		painter.setPen(pen);
 		line.setLine(value(), 0, value(), 0.6 * height());
@@ -192,18 +181,18 @@ void HorizontalMeter::paintEvent(QPaintEvent *e)
 		qreal alarm = (alarmValue() - minimum()) / (maximum() - minimum());
 
 		if (_flowingGradient) {
-			g.setColorAt(0, _needleColors[0]);
-			g.setColorAt(warn, _needleColors[1]);
-			g.setColorAt(alarm, _needleColors[2]);
-			g.setColorAt(1, _needleColors[2]);
+			g.setColorAt(0, valueColor());
+			g.setColorAt(warn, warnColor());
+			g.setColorAt(alarm, alarmColor());
+			g.setColorAt(1, alarmColor());
 		}
 		else {
-			g.setColorAt(0, _needleColors[0]);
-			g.setColorAt(warn - 0.00001, _needleColors[0]);
-			g.setColorAt(warn, _needleColors[1]);
-			g.setColorAt(alarm - 0.0001, _needleColors[1]);
-			g.setColorAt(alarm, _needleColors[2]);
-			g.setColorAt(1, _needleColors[2]);
+			g.setColorAt(0, valueColor());
+			g.setColorAt(warn - 0.00001, valueColor());
+			g.setColorAt(warn, warnColor());
+			g.setColorAt(alarm - 0.0001, warnColor());
+			g.setColorAt(alarm, alarmColor());
+			g.setColorAt(1, alarmColor());
 		}
 
 		painter.setClipRect(rVal);
