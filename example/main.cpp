@@ -10,31 +10,35 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	bar = new CoilMeter(this, -50, 20);
 	gradBar = new CoilMeter(this, -50, 20);
 	flowBar = new CoilMeter(this, -50, 20);
-#if 0
-	hneedle = new HorizontalScale(this, -50, 20);
-	hbar = new HorizontalScale(this, -50, 20);
-	hgradBar = new HorizontalScale(this, -50, 20);
-	hflowBar = new HorizontalScale(this, -50, 20);
+
+	hneedle = new HorizontalMeter(this, -50, 20);
+	hbar = new HorizontalMeter(this, -50, 20);
+	hgradBar = new HorizontalMeter(this, -50, 20);
+	hflowBar = new HorizontalMeter(this, -50, 20);
 
 	hneedle->setMargin(20);
-	hneedle->setStyle(HorizontalScale::StyleNeedle);
+	hneedle->setStyle(HorizontalMeter::StyleNeedle);
 	hneedle->setAlarmValue(15);
 	hneedle->setWarnValue(-20);
+	hneedle->setOverlayEnabled(true);
 
 	hbar->setMargin(20);
-	hbar->setStyle(HorizontalScale::StyleBar);
+	hbar->setStyle(HorizontalMeter::StyleBar);
 	hbar->setAlarmValue(15);
 	hbar->setWarnValue(-20);
+	hbar->setOverlayEnabled(false);
 
 	hgradBar->setMargin(20);
-	hgradBar->setStyle(HorizontalScale::StyleGradientBar);
+	hgradBar->setStyle(HorizontalMeter::StyleGradientBar);
 	hgradBar->setAlarmValue(15);
 	hgradBar->setWarnValue(-20);
+	hgradBar->setOverlayEnabled(true);
 
 	hflowBar->setMargin(20);
-	hflowBar->setStyle(HorizontalScale::StyleGradientBar);
+	hflowBar->setStyle(HorizontalMeter::StyleGradientBar);
 	hflowBar->setAlarmValue(15);
 	hflowBar->setWarnValue(-20);
+	hflowBar->setOverlayEnabled(false);
 
 	QPalette p = hneedle->palette();
 	QLinearGradient g1(0, 0, 1, 1);
@@ -60,7 +64,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	vlayout->addWidget(hbar);
 	vlayout->addWidget(hgradBar);
 	vlayout->addWidget(hflowBar);
-#endif
+
 	layout = new QGridLayout();
 	layout->addWidget(needle, 0, 0);
 	layout->addWidget(bar, 0, 1);
@@ -69,7 +73,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 
 	hlayout = new QHBoxLayout(this);
 	hlayout->addLayout(layout);
-//	hlayout->addLayout(vlayout);
+	hlayout->addLayout(vlayout);
 
 	needle->setValue(-5);
 	bar->setValue(-5);
@@ -148,10 +152,10 @@ void Widget::updateScales()
 	bar->setValue(value);
 	gradBar->setValue(value);
 	flowBar->setValue(value);
-	//hneedle->setValue(value);
-	//hbar->setValue(value);
-	//hgradBar->setValue(value);
-	//hflowBar->setValue(value);
+	hneedle->setValue(value);
+	hbar->setValue(value);
+	hgradBar->setValue(value);
+	hflowBar->setValue(value);
 
 	degree += 5;
 	degree %= 360;

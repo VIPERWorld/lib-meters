@@ -6,6 +6,7 @@
 #include <QWidget>
 
 #include <coilmeter.h>
+#include <horizontalmeter.h>
 
 class Widget : public QWidget
 {
@@ -14,7 +15,7 @@ public:
 	Widget(QWidget *parent);
 private:
 	CoilMeter *needle, *bar, *gradBar, *flowBar;
-//	HorizontalScale *hneedle, *hbar, *hgradBar, *hflowBar;
+	HorizontalMeter *hneedle, *hbar, *hgradBar, *hflowBar;
 	QGridLayout * layout;
 	QVBoxLayout * vlayout;
 	QHBoxLayout *hlayout;
