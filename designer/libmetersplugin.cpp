@@ -1,171 +1,136 @@
+#include <qglobal.h>
+#include <qaction.h>
+#include <QtPlugin>
+#include <QDesignerFormEditorInterface>
+#include <QDesignerFormWindowInterface>
+#include <QDesignerFormWindowCursorInterface>
+#include <QExtensionManager>
+#include <QErrorMessage>
 
+#include "libmetersplugin.h"
 #include <coilmeter.h>
 #include <horizontalmeter.h>
-#include "libmetersplugin.h"
 
-#include <QtPlugin>
+using namespace DesignerPlugin;
 
-CoilMeterPlugin::CoilMeterPlugin(QObject *parent)
-        : QObject(parent)
+CustomWidgetInterface::CustomWidgetInterface(QObject *parent): 
+    QObject(parent),
+    d_isInitialized(false)
 {
-    initialized = false;
 }
 
-void CoilMeterPlugin::initialize(QDesignerFormEditorInterface *)
-{
-    if (initialized)
-        return;
-
-    initialized = true;
-}
-
-bool CoilMeterPlugin::isInitialized() const
-{
-    return initialized;
-}
-
-QWidget *CoilMeterPlugin::createWidget(QWidget *parent)
-{
-	return new CoilMeter(parent);
-}
-
-QString CoilMeterPlugin::name() const
-{
-	return "CoilMeterPlugin";
-}
-
-QString CoilMeterPlugin::group() const
-{
-    return "bitwigglers.org";
-}
-
-QIcon CoilMeterPlugin::icon() const
-{
-    return QIcon(":battmeter.png");
-}
-
-QString CoilMeterPlugin::toolTip() const
-{
-    return "";
-}
-
-QString CoilMeterPlugin::whatsThis() const
-{
-    return "";
-}
-
-bool CoilMeterPlugin::isContainer() const
+bool CustomWidgetInterface::isContainer() const
 {
     return false;
 }
 
-QString CoilMeterPlugin::domXml() const
+bool CustomWidgetInterface::isInitialized() const
 {
-	return "<widget class=\"CoilMeter\" name=\"coilmeter\">\n"
-           " <property name=\"geometry\">\n"
-           "  <rect>\n"
-           "   <x>0</x>\n"
-           "   <y>0</y>\n"
-           "   <width>200</width>\n"
-           "   <height>30</height>\n"
-           "  </rect>\n"
-           " </property>\n"
-           " <property name=\"toolTip\" >\n"
-		   "  <string>Coil Meter</string>\n"
-           " </property>\n"
-           " <property name=\"whatsThis\" >\n"
-		   "  <string>Coil Meter</string>\n"
-           " </property>\n"
-           " </widget>\n";
+    return d_isInitialized;
 }
 
-QString CoilMeterPlugin::includeFile() const
+QIcon CustomWidgetInterface::icon() const
 {
-	return "coilmeter.h";
+    return d_icon;
 }
 
-Q_EXPORT_PLUGIN2(customwidgetplugin, CoilMeterPlugin)
-
-/**************************************************************************/
-
-HorizontalMeterPlugin::HorizontalMeterPlugin(QObject *parent)
-		: QObject(parent)
+QString CustomWidgetInterface::codeTemplate() const
 {
-	initialized = false;
+    return d_codeTemplate;
 }
 
-void HorizontalMeterPlugin::initialize(QDesignerFormEditorInterface *)
+QString CustomWidgetInterface::domXml() const
 {
-	if (initialized)
-		return;
-
-	initialized = true;
+    return d_domXml;
 }
 
-bool HorizontalMeterPlugin::isInitialized() const
+QString CustomWidgetInterface::group() const
 {
-	return initialized;
+	return "LibMeter Widgets";
 }
 
-QWidget* HorizontalMeterPlugin::createWidget(QWidget *parent)
+QString CustomWidgetInterface::includeFile() const
+{
+    return d_include;
+}
+
+QString CustomWidgetInterface::name() const
+{
+    return d_name;
+}
+
+QString CustomWidgetInterface::toolTip() const
+{
+    return d_toolTip;
+}
+
+QString CustomWidgetInterface::whatsThis() const
+{
+    return d_whatsThis;
+}
+
+void CustomWidgetInterface::initialize(
+    QDesignerFormEditorInterface *formEditor)
+{
+    if ( d_isInitialized )
+        return;
+
+    d_isInitialized = true;
+}
+
+/***********************************************************************/
+
+CoilMeterInterface::CoilMeterInterface(QObject *parent):
+    CustomWidgetInterface(parent)
+{
+	d_name = "CoilMeter";
+	d_include = "coilmeter.h";
+	d_icon = QPixmap(":/images/coilmeter.png");
+    d_domXml = 
+		"<widget class=\"CoilMeter\" name=\"coilMeter\">\n"
+        "</widget>\n";
+}
+
+QWidget *CoilMeterInterface::createWidget(QWidget *parent)
+{
+	return new CoilMeter(parent);
+}
+
+/************************************************************************/
+
+HorizontalMeterInterface::HorizontalMeterInterface(QObject *parent):
+    CustomWidgetInterface(parent)
+{
+	d_name = "HorizontalMeter";
+	d_include = "horizontalmeter.h";
+	d_icon = QPixmap(":/images/horizontalmeter.png");
+	d_domXml =
+		"<widget class=\"HorizontalMeter\" name=\"horizontalMeter\">\n"
+        "</widget>\n";
+}
+
+QWidget *HorizontalMeterInterface::createWidget(QWidget *parent)
 {
 	return new HorizontalMeter(parent);
 }
 
-QString HorizontalMeterPlugin::name() const
+/***************************************************************/
+
+CustomWidgetCollectionInterface::CustomWidgetCollectionInterface(   
+        QObject *parent): 
+    QObject(parent)
 {
-	return "HorizontalMeterPlugin";
+	d_plugins.append(new CoilMeterInterface(this));
+	d_plugins.append(new HorizontalMeterInterface(this));
 }
 
-QString HorizontalMeterPlugin::group() const
+QList<QDesignerCustomWidgetInterface*> 
+    CustomWidgetCollectionInterface::customWidgets(void) const
 {
-	return "bitwigglers.org";
+    return d_plugins;
 }
 
-QIcon HorizontalMeterPlugin::icon() const
-{
-	return QIcon(":battmeter.png");
-}
+/***************************************************************/
 
-QString HorizontalMeterPlugin::toolTip() const
-{
-	return "";
-}
-
-QString HorizontalMeterPlugin::whatsThis() const
-{
-	return "";
-}
-
-bool HorizontalMeterPlugin::isContainer() const
-{
-	return false;
-}
-
-QString HorizontalMeterPlugin::domXml() const
-{
-	return "<widget class=\"CoilMeter\" name=\"coilmeter\">\n"
-		   " <property name=\"geometry\">\n"
-		   "  <rect>\n"
-		   "   <x>0</x>\n"
-		   "   <y>0</y>\n"
-		   "   <width>200</width>\n"
-		   "   <height>30</height>\n"
-		   "  </rect>\n"
-		   " </property>\n"
-		   " <property name=\"toolTip\" >\n"
-		   "  <string>Coil Meter</string>\n"
-		   " </property>\n"
-		   " <property name=\"whatsThis\" >\n"
-		   "  <string>Coil Meter</string>\n"
-		   " </property>\n"
-		   " </widget>\n";
-}
-
-QString HorizontalMeterPlugin::includeFile() const
-{
-	return "coilmeter.h";
-}
-
-//Q_EXPORT_PLUGIN2(customwidgetplugin, HorizontalMeterPlugin)
+Q_EXPORT_PLUGIN2(DesignerPlugin, CustomWidgetCollectionInterface)
 
