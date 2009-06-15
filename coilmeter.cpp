@@ -4,13 +4,13 @@
 #include <cmath>
 
 CoilMeter::CoilMeter(QWidget *parent)
-	: AbstractMeter(parent)
+	: AlarmMeter(parent)
 {
 	init();
 }
 
 CoilMeter::CoilMeter(QWidget *parent, qreal min, qreal max)
-	: AbstractMeter(parent, min, max)
+	: AlarmMeter(parent, min, max)
 {
 	init();
 }
@@ -24,10 +24,6 @@ void CoilMeter::init()
 	QSizePolicy s(QSizePolicy::Preferred, QSizePolicy::Preferred);
 	s.setHeightForWidth(true);
 	setSizePolicy(s);
-
-	_valueColor = QColor(0, 255, 0, 127);
-	_warnColor  = QColor(255, 255, 0, 127);
-	_alarmColor = QColor(255, 0, 0, 127);
 
 	_overlayEnabled = true;
 
@@ -52,36 +48,6 @@ QSize CoilMeter::minimumSize() const
 int CoilMeter::heightForWidth(int w) const
 {
 	return (w * 3) / 4;
-}
-
-void CoilMeter::setValueColor(QColor c)
-{
-	_valueColor = c;
-}
-
-QColor CoilMeter::valueColor() const
-{
-	return _valueColor;
-}
-
-void CoilMeter::setWarnColor(QColor c)
-{
-	_warnColor = c;
-}
-
-QColor CoilMeter::warnColor() const
-{
-	return _warnColor;
-}
-
-void CoilMeter::setAlarmColor(QColor c)
-{
-	_alarmColor = c;
-}
-
-QColor CoilMeter::alarmColor() const
-{
-	return _alarmColor;
 }
 
 void CoilMeter::setNeedleStyle(enum NeedleStyle style)
@@ -206,11 +172,11 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		painter.setClipRect(-200, -150, 400, 120);
 
 		if (value() < warnValue())
-			painter.setBrush(QBrush(_valueColor));
+			painter.setBrush(QBrush(valueColor()));
 		else if (value() >= warnValue() && value() < alarmValue())
-			painter.setBrush(QBrush(_warnColor));
+			painter.setBrush(QBrush(warnColor()));
 		else
-			painter.setBrush(QBrush(_alarmColor));
+			painter.setBrush(QBrush(alarmColor()));
 
 		painter.setPen(Qt::PenStyle());
 		static const int needle[3][2] = {{-15, (int)vcenter}, {0, -130}, {15, (int)vcenter}};
@@ -224,11 +190,11 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		if (_style == StyleBar) {
 			QPen pen;
 			if (value() < warnValue())
-				pen.setColor(_valueColor);
+				pen.setColor(valueColor());
 			else if (value() >= warnValue() && value() < alarmValue())
-				pen.setColor(_warnColor);
+				pen.setColor(warnColor());
 			else
-				pen.setColor(_alarmColor);
+				pen.setColor(alarmColor());
 
 			pen.setWidth(15);
 			pen.setCapStyle(Qt::FlatCap);
@@ -251,17 +217,17 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			warn = 0.333 - warn * 0.333;
 
 			if (_flowingGradient) {
-				grad.setColorAt(0, _alarmColor);
-				grad.setColorAt(alarm, _alarmColor);
-				grad.setColorAt(warn, _warnColor);
-				grad.setColorAt(0.333, _valueColor);
+				grad.setColorAt(0, alarmColor());
+				grad.setColorAt(alarm, alarmColor());
+				grad.setColorAt(warn, warnColor());
+				grad.setColorAt(0.333, valueColor());
 			} else {
-				grad.setColorAt(0, _alarmColor);
-				grad.setColorAt(alarm - 0.000000000001, _alarmColor);
-				grad.setColorAt(alarm, _warnColor);
-				grad.setColorAt(warn - 0.0000000000001, _warnColor);
-				grad.setColorAt(warn, _valueColor);
-				grad.setColorAt(0.333, _valueColor);
+				grad.setColorAt(0, alarmColor());
+				grad.setColorAt(alarm - 0.000000000001, alarmColor());
+				grad.setColorAt(alarm, warnColor());
+				grad.setColorAt(warn - 0.0000000000001, warnColor());
+				grad.setColorAt(warn, valueColor());
+				grad.setColorAt(0.333, valueColor());
 			}
 
 			QPen pen;
@@ -271,11 +237,11 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.drawArc(QRectF(-sqrtf(-123 * -123), -123, 2 * sqrtf(-123 * -123), 246), 150 * 16, (int)(-angle * 16));
 
 			if (value() < warnValue())
-				pen.setColor(_valueColor);
+				pen.setColor(valueColor());
 			else if (value() >= warnValue() && value() < alarmValue())
-				pen.setColor(_warnColor);
+				pen.setColor(warnColor());
 			else
-				pen.setColor(_alarmColor);
+				pen.setColor(alarmColor());
 			painter.setPen(pen);
 
 			QFont font = painter.font();
