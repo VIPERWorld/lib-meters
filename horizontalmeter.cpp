@@ -48,16 +48,20 @@ QSize HorizontalMeter::minimumSize() const
 	return QSize(120, 40);
 }
 
-void HorizontalMeter::setStyle(enum Style style)
-{
-	_style = style;
-	update();
-}
-
 void HorizontalMeter::setMargin(int margin)
 {
 	_margin = margin < 0 ? 0 : margin;
 	update();
+}
+
+void HorizontalMeter::setMarginEnabled(bool enable)
+{
+	_marginEnabled = enable;
+}
+
+bool HorizontalMeter::marginEnabled() const
+{
+	return _marginEnabled;
 }
 
 void HorizontalMeter::setMarginColor(const QColor &color)
@@ -66,19 +70,36 @@ void HorizontalMeter::setMarginColor(const QColor &color)
 	update();
 }
 
+QColor HorizontalMeter::marginColor() const
+{
+	return _marginColor;
+}
+
+void HorizontalMeter::setNeedleStyle(enum NeedleStyle style)
+{
+	_style = style;
+	update();
+}
+
+enum HorizontalMeter::NeedleStyle HorizontalMeter::needleStyle() const
+{
+	return _style;
+}
+
 void HorizontalMeter::setOverlayEnabled(bool enable)
 {
 	_overlayEnabled = enable;
+	update();
+}
+
+bool HorizontalMeter::overlayEnabled() const
+{
+	return _overlayEnabled;
 }
 
 void HorizontalMeter::setFlowingGradient(bool b)
 {
 	_flowingGradient = b;
-}
-
-void HorizontalMeter::setMarginEnabled(bool enable)
-{
-	_marginEnabled = enable;
 }
 
 void HorizontalMeter::paintEvent(QPaintEvent *e)

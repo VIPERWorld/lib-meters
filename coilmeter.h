@@ -9,7 +9,6 @@ class LIBMETERSSHARED_EXPORT CoilMeter : public AlarmMeter
 
 	Q_PROPERTY(NeedleStyle needleStyle READ needleStyle WRITE setNeedleStyle)
 	Q_ENUMS(NeedleStyle)
-
 	Q_PROPERTY(bool overlayEnabled READ overlayEnabled WRITE setOverlayEnabled)
 
 public:

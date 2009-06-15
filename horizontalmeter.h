@@ -8,21 +8,33 @@
 class LIBMETERSSHARED_EXPORT HorizontalMeter : public AlarmMeter
 {
     Q_OBJECT
+	Q_PROPERTY(NeedleStyle needleStyle READ needleStyle WRITE setNeedleStyle)
+	Q_ENUMS(NeedleStyle)
+
+	Q_PROPERTY(bool overlayEnabled READ overlayEnabled WRITE setOverlayEnabled)
+	Q_PROPERTY(bool marginEnabled READ marginEnabled WRITE setMarginEnabled)
+	Q_PROPERTY(QColor marginColor READ marginColor WRITE setMarginColor)
 
 public:
 	HorizontalMeter(QWidget *parent = 0);
 	HorizontalMeter(QWidget *parent, qreal min, qreal max);
 	~HorizontalMeter();
 
-	enum Style{StyleNeedle, StyleBar, StyleGradientBar};
+	enum NeedleStyle{StyleNeedle, StyleBar, StyleGradientBar};
 
 	void setMargin(int margin);
 	void setMarginColor(const QColor &color);
-	void setOverlayEnabled(bool enable);
+	QColor marginColor() const;
 	void setMarginEnabled(bool enable);
+	bool marginEnabled() const;
+
+	void setOverlayEnabled(bool enable);
+	bool overlayEnabled() const;
+
 	void setFlowingGradient(bool);
 
-	void setStyle(enum Style);
+	void setNeedleStyle(enum NeedleStyle);
+	enum NeedleStyle needleStyle() const;
 
 protected:
 	virtual QSize sizeHint() const;
@@ -34,7 +46,7 @@ private:
 	int _margin;
 	QColor _marginColor;
 
-	enum Style _style;
+	enum NeedleStyle _style;
 
 	bool _overlayEnabled;
 	bool _marginEnabled;

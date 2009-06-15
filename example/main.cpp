@@ -17,25 +17,25 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	hflowBar = new HorizontalMeter(this, -50, 20);
 
 	hneedle->setMargin(20);
-	hneedle->setStyle(HorizontalMeter::StyleNeedle);
+	hneedle->setNeedleStyle(HorizontalMeter::StyleNeedle);
 	hneedle->setAlarmValue(15);
 	hneedle->setWarnValue(-20);
 	hneedle->setOverlayEnabled(true);
 
 	hbar->setMargin(20);
-	hbar->setStyle(HorizontalMeter::StyleBar);
+	hbar->setNeedleStyle(HorizontalMeter::StyleBar);
 	hbar->setAlarmValue(15);
 	hbar->setWarnValue(-20);
 	hbar->setOverlayEnabled(false);
 
 	hgradBar->setMargin(20);
-	hgradBar->setStyle(HorizontalMeter::StyleGradientBar);
+	hgradBar->setNeedleStyle(HorizontalMeter::StyleGradientBar);
 	hgradBar->setAlarmValue(15);
 	hgradBar->setWarnValue(-20);
 	hgradBar->setOverlayEnabled(true);
 
 	hflowBar->setMargin(20);
-	hflowBar->setStyle(HorizontalMeter::StyleGradientBar);
+	hflowBar->setNeedleStyle(HorizontalMeter::StyleGradientBar);
 	hflowBar->setAlarmValue(15);
 	hflowBar->setWarnValue(-20);
 	hflowBar->setOverlayEnabled(false);
