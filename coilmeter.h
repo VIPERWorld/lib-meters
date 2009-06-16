@@ -16,10 +16,9 @@ public:
 	CoilMeter(QWidget *parent, qreal min, qreal max);
 	~CoilMeter();
 
-	enum NeedleStyle{StyleNeedle, StyleBar, StyleGradientBar};
+	enum NeedleStyle{StyleNeedle, StyleBar, StyleFixedGradient, StyleFlowGradient};
 
 	void setOverlayEnabled(bool enable);
-	void setFlowingGradient(bool);
 	void setNeedleStyle(enum NeedleStyle);
 
 	bool overlayEnabled() const;
@@ -34,9 +33,6 @@ protected:
 	virtual int heightForWidth(int w) const;
 
 private:
-
-	bool _flowingGradient;
-
 	enum NeedleStyle _style;
 
 	bool _overlayEnabled;

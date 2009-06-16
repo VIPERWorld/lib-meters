@@ -72,12 +72,6 @@ bool CoilMeter::overlayEnabled() const
 	return _overlayEnabled;
 }
 
-void CoilMeter::setFlowingGradient(bool b)
-{
-	_flowingGradient = b;
-	update();
-}
-
 QRect CoilMeter::findRect(const QRect& r)
 {
 	int w = r.width();
@@ -208,7 +202,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, QString::number(value(), 'f', 1));
 			painter.restore();
 
-		} else if (_style == StyleGradientBar) {
+		} else if (_style == StyleFixedGradient || _style == StyleFlowGradient) {
 			QConicalGradient grad(0, 0, 30);
 			// calculate the gradient stops for warn and alarm level
 			qreal alarm = (alarmValue() - minimum()) / (maximum() - minimum());
@@ -216,7 +210,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			qreal warn = (warnValue() - minimum()) / (maximum() - minimum());
 			warn = 0.333 - warn * 0.333;
 
-			if (_flowingGradient) {
+			if (_style == StyleFlowGradient) {
 				grad.setColorAt(0, alarmColor());
 				grad.setColorAt(alarm, alarmColor());
 				grad.setColorAt(warn, warnColor());

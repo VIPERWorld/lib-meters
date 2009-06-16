@@ -29,13 +29,13 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	hbar->setOverlayEnabled(false);
 
 	hgradBar->setMargin(20);
-	hgradBar->setNeedleStyle(HorizontalMeter::StyleGradientBar);
+	hgradBar->setNeedleStyle(HorizontalMeter::StyleFixedGradient);
 	hgradBar->setAlarmValue(15);
 	hgradBar->setWarnValue(-20);
 	hgradBar->setOverlayEnabled(true);
 
 	hflowBar->setMargin(20);
-	hflowBar->setNeedleStyle(HorizontalMeter::StyleGradientBar);
+	hflowBar->setNeedleStyle(HorizontalMeter::StyleFlowGradient);
 	hflowBar->setAlarmValue(15);
 	hflowBar->setWarnValue(-20);
 	hflowBar->setOverlayEnabled(false);
@@ -56,8 +56,6 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	hbar->setAutoFillBackground(true);
 	hgradBar->setAutoFillBackground(true);
 	hflowBar->setAutoFillBackground(true);
-	hgradBar->setFlowingGradient(false);
-	hflowBar->setFlowingGradient(true);
 
 	vlayout = new QVBoxLayout();
 	vlayout->addWidget(hneedle);
@@ -121,21 +119,19 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	bar->setMinorTicks(2);
 	bar->setValue(0);
 
-	gradBar->setNeedleStyle(CoilMeter::StyleGradientBar);
+	gradBar->setNeedleStyle(CoilMeter::StyleFixedGradient);
 	gradBar->setWarnValue(-20);
 	gradBar->setAlarmValue(15);
 	gradBar->setMajorTicks(10);
 	gradBar->setMinorTicks(2);
 	gradBar->setValue(0);
-	gradBar->setFlowingGradient(false);
 
-	flowBar->setNeedleStyle(CoilMeter::StyleGradientBar);
+	flowBar->setNeedleStyle(CoilMeter::StyleFlowGradient);
 	flowBar->setWarnValue(-20);
 	flowBar->setAlarmValue(15);
 	flowBar->setMajorTicks(10);
 	flowBar->setMinorTicks(2);
 	flowBar->setValue(0);
-	flowBar->setFlowingGradient(true);
 
 	timer->start(10);
 }

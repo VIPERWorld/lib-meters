@@ -97,11 +97,6 @@ bool HorizontalMeter::overlayEnabled() const
 	return _overlayEnabled;
 }
 
-void HorizontalMeter::setFlowingGradient(bool b)
-{
-	_flowingGradient = b;
-}
-
 void HorizontalMeter::paintEvent(QPaintEvent *e)
 {
 	// map the range to the geometry of the widget
@@ -183,7 +178,7 @@ void HorizontalMeter::paintEvent(QPaintEvent *e)
 		line.setLine(value(), 0, value(), 0.6 * height());
 		line = matrix.map(line);
 		painter.drawLine(line);
-	} else if (_style == StyleGradientBar) {
+	} else if (_style == StyleFixedGradient || _style == StyleFlowGradient) {
 		painter.save();
 		QPointF p1(minimum(), 0);
 		QPointF p2(value(), 0.6 * height());
@@ -201,7 +196,7 @@ void HorizontalMeter::paintEvent(QPaintEvent *e)
 		qreal warn = (warnValue() - minimum()) / (maximum() - minimum());
 		qreal alarm = (alarmValue() - minimum()) / (maximum() - minimum());
 
-		if (_flowingGradient) {
+		if (_style == StyleFlowGradient) {
 			g.setColorAt(0, valueColor());
 			g.setColorAt(warn, warnColor());
 			g.setColorAt(alarm, alarmColor());

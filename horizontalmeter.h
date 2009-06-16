@@ -20,7 +20,7 @@ public:
 	HorizontalMeter(QWidget *parent, qreal min, qreal max);
 	~HorizontalMeter();
 
-	enum NeedleStyle{StyleNeedle, StyleBar, StyleGradientBar};
+	enum NeedleStyle{StyleNeedle, StyleBar, StyleFixedGradient, StyleFlowGradient};
 
 	void setMargin(int margin);
 	void setMarginColor(const QColor &color);
@@ -50,8 +50,6 @@ private:
 
 	bool _overlayEnabled;
 	bool _marginEnabled;
-
-	bool _flowingGradient;
 
 	void init();
 };
