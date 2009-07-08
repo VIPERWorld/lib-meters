@@ -30,6 +30,9 @@ public:
 
 	virtual int heightForWidth(int w) const;
 
+	void setHousingFont(QFont& f) {_housingFont = f;}
+	void setHousingText(const QString& s) {_housingText = s;}
+
 protected:
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
@@ -43,6 +46,9 @@ private:
 
 	int _precision;
 	QString _unit;
+
+	QFont _housingFont;
+	QString _housingText;
 
 	void init();
 	QRect findRect(const QRect& r);

@@ -121,6 +121,10 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	painter.drawRoundRect(scaleBackgroundRect, cornerRadius, cornerRadius);
 	qreal vcenter = 55;
 
+	// draw user string on the housing
+	painter.setFont(_housingFont);
+	painter.drawText(-180, 60, 360, 90, Qt::AlignLeft | Qt::AlignVCenter, _housingText);
+
 	// the rest (except the overlay) is drawn a bit larger to match the proportions of an analog meter
 	painter.save();
 	painter.translate(0, 60);
@@ -294,6 +298,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	}
 
 	painter.restore();
+
 	// draw overlay
 	if (_overlayEnabled) {
 		QRegion region = constructOverlayRegion(scaleBackgroundRect, cornerRadius);
