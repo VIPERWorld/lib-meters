@@ -108,7 +108,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	// that fits within current width and height
 	QRect r = findRect(QRect(0, 0, width(), height()));
 	painter.setViewport(r);
-	painter.setWindow(-200, -150, 400, 300);
+	painter.setWindow(-205, -155, 410, 310);
 
 	int cornerRadius = 10;
 	// draw housing
