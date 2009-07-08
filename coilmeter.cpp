@@ -215,7 +215,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.setFont(font);
 			QString text = QString::number(value(), 'f', _precision);
 			text += _unit;
-			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, text);
+			painter.drawText(-70, -55, 140, 50, Qt::AlignCenter, text);
 			painter.restore();
 
 		} else if (_style == StyleFixedGradient || _style == StyleFlowGradient) {
@@ -260,7 +260,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.setFont(font);
 			QString text = QString::number(value(), 'f', _precision);
 			text += _unit;
-			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, text);
+			painter.drawText(-70, -55, 140, 50, Qt::AlignCenter, text);
 			painter.restore();
 		}
 	}
