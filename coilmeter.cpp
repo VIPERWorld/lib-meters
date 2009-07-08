@@ -26,7 +26,7 @@ void CoilMeter::init()
 	setSizePolicy(s);
 
 	_overlayEnabled = true;
-
+	_precision = 1;
 	_style = StyleBar;
 }
 
@@ -64,6 +64,13 @@ enum CoilMeter::NeedleStyle CoilMeter::needleStyle() const
 void CoilMeter::setOverlayEnabled(bool enable)
 {
 	_overlayEnabled = enable;
+	update();
+}
+
+void CoilMeter::setPrecision(int prec)
+{
+	if (prec > 0)
+		_precision = prec;
 	update();
 }
 
@@ -242,7 +249,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			font.setPixelSize(20);
 			font.setBold(true);
 			painter.setFont(font);
-			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, QString::number(value(), 'f', 1));
+			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, QString::number(value(), 'f', _precision));
 			painter.restore();
 		}
 	}
