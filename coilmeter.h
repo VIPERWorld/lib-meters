@@ -22,6 +22,7 @@ public:
 	void setNeedleStyle(enum NeedleStyle);
 
 	void setPrecision(int);
+	void setUnit(const QString&);
 
 	bool overlayEnabled() const;
 
@@ -41,6 +42,7 @@ private:
 	bool _overlayEnabled;
 
 	int _precision;
+	QString _unit;
 
 	void init();
 	QRect findRect(const QRect& r);

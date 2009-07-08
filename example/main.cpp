@@ -111,6 +111,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	needle->setMajorTicks(10);
 	needle->setMinorTicks(2);
 	needle->setValue(0);
+	needle->setUnit("dBm");
 
 	bar->setNeedleStyle(CoilMeter::StyleBar);
 	bar->setWarnValue(-20);
@@ -118,6 +119,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	bar->setMajorTicks(10);
 	bar->setMinorTicks(2);
 	bar->setValue(0);
+	bar->setUnit("V");
 
 	gradBar->setNeedleStyle(CoilMeter::StyleFixedGradient);
 	gradBar->setWarnValue(-20);
@@ -125,6 +127,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	gradBar->setMajorTicks(10);
 	gradBar->setMinorTicks(2);
 	gradBar->setValue(0);
+	gradBar->setUnit("dBuV");
 
 	flowBar->setNeedleStyle(CoilMeter::StyleFlowGradient);
 	flowBar->setWarnValue(-20);
@@ -132,6 +135,7 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	flowBar->setMajorTicks(10);
 	flowBar->setMinorTicks(2);
 	flowBar->setValue(0);
+	flowBar->setUnit("deg");
 
 	timer->start(10);
 }

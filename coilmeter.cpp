@@ -27,6 +27,7 @@ void CoilMeter::init()
 
 	_overlayEnabled = true;
 	_precision = 1;
+	_unit = "";
 	_style = StyleBar;
 }
 
@@ -72,6 +73,12 @@ void CoilMeter::setPrecision(int prec)
 	if (prec > 0)
 		_precision = prec;
 	update();
+}
+
+void CoilMeter::setUnit(const QString& string)
+{
+	_unit = string;
+	_unit.prepend(' ');
 }
 
 bool CoilMeter::overlayEnabled() const
@@ -203,10 +210,12 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.drawArc(QRectF(-sqrtf(-123 * -123), -123, 2 * sqrtf(-123 * -123), 246), 150 * 16, (int)(-angle * 16));
 
 			QFont font = painter.font();
-			font.setPixelSize(20);
+			font.setPixelSize(18);
 			font.setBold(true);
 			painter.setFont(font);
-			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, QString::number(value(), 'f', 1));
+			QString text = QString::number(value(), 'f', _precision);
+			text += _unit;
+			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, text);
 			painter.restore();
 
 		} else if (_style == StyleFixedGradient || _style == StyleFlowGradient) {
@@ -246,10 +255,12 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.setPen(pen);
 
 			QFont font = painter.font();
-			font.setPixelSize(20);
+			font.setPixelSize(18);
 			font.setBold(true);
 			painter.setFont(font);
-			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, QString::number(value(), 'f', _precision));
+			QString text = QString::number(value(), 'f', _precision);
+			text += _unit;
+			painter.drawText(-50, -65, 100, 50, Qt::AlignCenter, text);
 			painter.restore();
 		}
 	}
