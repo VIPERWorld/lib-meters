@@ -187,7 +187,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			painter.setBrush(QBrush(alarmColor()));
 
 		painter.setPen(Qt::PenStyle());
-		static const int needle[3][2] = {{-15, (int)vcenter}, {0, -130}, {15, (int)vcenter}};
+		static const int needle[3][2] = {{-10, (int)vcenter}, {0, -130}, {10, (int)vcenter}};
 		painter.drawPolygon(QPolygon(3, &needle[0][0]));
 		painter.restore();
 	} else {
