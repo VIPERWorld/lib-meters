@@ -269,8 +269,27 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	if (_style == StyleNeedle) {
 		painter.save();
 		painter.setBrush(palette().alternateBase());
-		painter.setClipRect(-60, -60, 120, 60);
-		painter.drawEllipse(QRectF(-40, -40, 80, 80));
+		painter.setClipRect(-80, -80, 160, 80);
+
+		//painter.setBrush(QBrush());
+		painter.drawRoundedRect(-70, -30, 140, 30 + cornerRadius,  + cornerRadius,  + cornerRadius);
+		QPen pen;
+		if (value() < warnValue())
+			pen.setColor(valueColor());
+		else if (value() >= warnValue() && value() < alarmValue())
+			pen.setColor(warnColor());
+		else
+			pen.setColor(alarmColor());
+		painter.setPen(pen);
+
+		QFont font = painter.font();
+		font.setPixelSize(16);
+		font.setBold(true);
+		painter.setFont(font);
+		QString text = QString::number(value(), 'f', _precision);
+		text += _unit;
+		painter.drawText(-70, -30, 140, 30, Qt::AlignCenter, text);
+
 		painter.restore();
 	}
 
