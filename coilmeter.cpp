@@ -21,7 +21,7 @@ CoilMeter::~CoilMeter()
 
 void CoilMeter::init()
 {
-	QSizePolicy s(QSizePolicy::Preferred, QSizePolicy::Preferred);
+	QSizePolicy s(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	s.setHeightForWidth(true);
 	setSizePolicy(s);
 
@@ -42,7 +42,7 @@ QSize CoilMeter::minimumSizeHint() const
 
 QSize CoilMeter::minimumSize() const
 {
-	return QSize(80, 6);
+	return QSize(80, 60);
 }
 
 int CoilMeter::heightForWidth(int w) const

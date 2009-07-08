@@ -25,12 +25,13 @@ public:
 
 	enum NeedleStyle needleStyle() const;
 
+	virtual int heightForWidth(int w) const;
+
 protected:
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
 	virtual QSize minimumSize() const;
 	virtual void paintEvent(QPaintEvent *e);
-	virtual int heightForWidth(int w) const;
 
 private:
 	enum NeedleStyle _style;
