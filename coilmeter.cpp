@@ -140,10 +140,10 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	painter.setBrush(palette().windowText());
 	painter.rotate(-60);
 	painter.drawLine(0, -130, 0 , -110);
-	painter.drawText(-10, -105, 20, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(minimum()));
+	painter.drawText(-15, -105, 30, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(minimum()));
 	painter.rotate(120);
 	painter.drawLine(0, -130, 0 , -110);
-	painter.drawText(-10, -105, 20, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(maximum()));
+	painter.drawText(-15, -105, 30, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(maximum()));
 	painter.restore();
 
 	// draw minor ticks
@@ -300,10 +300,10 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	// paint offset value
 	if (!qFuzzyCompare(1 + offset(), 1 + 0.0)) {
 		QFont f = painter.font();
-		f.setPixelSize(12);
+		f.setPixelSize(10);
 		painter.setFont(f);
 		QRect r2(70, -30, 65, 30);
-		painter.drawText(r2, Qt::AlignCenter, "Offs: " + QString::number(offset(), 'f', _precision));
+		painter.drawText(r2, Qt::AlignCenter, "Offset:\n" + QString::number(offset(), 'f', _precision) + " dB");
 	}
 
 	painter.restore();
