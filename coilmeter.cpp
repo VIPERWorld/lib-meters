@@ -29,6 +29,9 @@ void CoilMeter::init()
 	_precision = 1;
 	_unit = "";
 	_style = StyleBar;
+
+	connect(&offsetFontTimer, SIGNAL(timeout()), this, SLOT(setOffsetFontColor()));
+	offsetFontTimer.start(1000);
 }
 
 QSize CoilMeter::sizeHint() const
@@ -307,6 +310,9 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		QFont f = painter.font();
 		f.setPixelSize(10);
 		painter.setFont(f);
+		QPen pen = painter.pen();
+		pen.setColor(_offsetColor);
+		painter.setPen(pen);
 		QRect r2(70, -30, 65, 30);
 		painter.drawText(r2, Qt::AlignCenter, "Offset:\n" + QString::number(offset(), 'f', _precision));
 	}
@@ -355,3 +361,12 @@ QRegion CoilMeter::constructOverlayRegion(const QRect& rect, int radius)
 	QRegion ellipseRegion(ellipseRect,QRegion::Ellipse);
 	return region.subtracted(ellipseRegion);
 }
+
+#include <QDebug>
+void CoilMeter::setOffsetFontColor()
+{
+	_offsetOdd = _offsetOdd ? false : true;
+	_offsetColor = _offsetOdd ? Qt::black : alarmColor();
+	update();
+}
+

@@ -3,6 +3,8 @@
 
 #include "alarmmeter.h"
 
+#include <QTimer>
+
 class LIBMETERSSHARED_EXPORT CoilMeter : public AlarmMeter
 {
 	Q_OBJECT
@@ -55,6 +57,13 @@ private:
 	void init();
 	QRect findRect(const QRect& r);
 	QRegion constructOverlayRegion(const QRect& rect, int radius);
+
+	QTimer offsetFontTimer;
+	QColor _offsetColor;
+	bool _offsetOdd;
+
+private slots:
+	void setOffsetFontColor();
 };
 
 #endif // COILMETER_H
