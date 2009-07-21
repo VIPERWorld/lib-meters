@@ -297,8 +297,16 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		painter.restore();
 	}
 
-	painter.restore();
+	// paint offset value
+	if (offset() != 0) {
+		QFont f = painter.font();
+		f.setPixelSize(12);
+		painter.setFont(f);
+		QRect r2(70, -30, 65, 30);
+		painter.drawText(r2, Qt::AlignCenter, QString("Offs: %1").arg(offset()));
+	}
 
+	painter.restore();
 	// draw overlay
 	if (_overlayEnabled) {
 		QRegion region = constructOverlayRegion(scaleBackgroundRect, cornerRadius);

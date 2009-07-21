@@ -15,6 +15,7 @@ class LIBMETERSSHARED_EXPORT AbstractMeter : public QWidget
 	Q_PROPERTY(qreal alarmValue READ alarmValue WRITE setAlarmValue)
 	Q_PROPERTY(qreal minorTicks READ minorTicks WRITE setMinorTicks)
 	Q_PROPERTY(qreal majorTicks READ majorTicks WRITE setMajorTicks)
+	Q_PROPERTY(qreal offset READ offset WRITE setOffset)
 
 public:
 	AbstractMeter();
@@ -29,6 +30,7 @@ public:
 	qreal majorTicks() const;
 	qreal minimum() const;
 	qreal maximum() const;
+	qreal offset() const;
 
 public slots:
 	void setValue(qreal value);
@@ -43,6 +45,8 @@ public slots:
 	void setMinimum(qreal min);
 	void setMaximum(qreal max);
 
+	void setOffset(qreal);
+
 private:
 	qreal _min;
 	qreal _max;
@@ -52,6 +56,8 @@ private:
 	qreal _value;
 	qreal _warnValue;
 	qreal _alarmValue;
+
+	qreal _offset;
 };
 
 #endif // ABSTRACTMETER_H
