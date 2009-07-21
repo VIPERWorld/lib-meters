@@ -75,6 +75,11 @@ void CoilMeter::setPrecision(int prec)
 	update();
 }
 
+int CoilMeter::precision()
+{
+	return _precision;
+}
+
 void CoilMeter::setUnit(const QString& string)
 {
 	_unit = string;
@@ -303,7 +308,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		f.setPixelSize(10);
 		painter.setFont(f);
 		QRect r2(70, -30, 65, 30);
-		painter.drawText(r2, Qt::AlignCenter, "Offset:\n" + QString::number(offset(), 'f', _precision) + " dB");
+		painter.drawText(r2, Qt::AlignCenter, "Offset:\n" + QString::number(offset(), 'f', _precision));
 	}
 
 	painter.restore();

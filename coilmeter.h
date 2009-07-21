@@ -22,6 +22,8 @@ public:
 	void setNeedleStyle(enum NeedleStyle);
 
 	void setPrecision(int);
+	int precision();
+
 	void setUnit(const QString&);
 
 	bool overlayEnabled() const;
