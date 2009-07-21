@@ -309,6 +309,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	if (!qFuzzyCompare(1 + offset(), 1 + 0.0)) {
 		QFont f = painter.font();
 		f.setPixelSize(10);
+		f.setBold(true);
 		painter.setFont(f);
 		QPen pen = painter.pen();
 		pen.setColor(_offsetColor);
