@@ -298,12 +298,12 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	}
 
 	// paint offset value
-	if (offset() != 0) {
+	if (!qFuzzyCompare(1 + offset(), 1 + 0.0)) {
 		QFont f = painter.font();
 		f.setPixelSize(12);
 		painter.setFont(f);
 		QRect r2(70, -30, 65, 30);
-		painter.drawText(r2, Qt::AlignCenter, QString("Offs: %1").arg(offset()));
+		painter.drawText(r2, Qt::AlignCenter, "Offs: " + QString::number(offset(), 'f', _precision));
 	}
 
 	painter.restore();
