@@ -1,12 +1,12 @@
 #include "abstractmeter.h"
 
 AbstractMeter::AbstractMeter()
-	: QWidget(), _min(0), _max(100), _minorTicks(2), _majorTicks(10), _value(50), _warnValue(75), _alarmValue(90)
+	: QWidget(), _min(0), _max(100), _minorTicks(2), _majorTicks(10), _value(50), _warnValue(75), _alarmValue(90), _offset(0)
 {
 }
 
 AbstractMeter::AbstractMeter(QWidget *parent)
-	: QWidget(parent), _min(0), _max(100), _minorTicks(2), _majorTicks(10), _value(50), _warnValue(75), _alarmValue(90)
+	: QWidget(parent), _min(0), _max(100), _minorTicks(2), _majorTicks(10), _value(50), _warnValue(75), _alarmValue(90), _offset(0)
 {
 }
 
