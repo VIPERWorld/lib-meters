@@ -112,6 +112,16 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
 
+	QColor cv = valueColor();
+	QColor cw = warnColor();
+	QColor ca = alarmColor();
+
+	if (_style != StyleNeedle) {
+		cv.setAlpha(127);
+		cw.setAlpha(127);
+		ca.setAlpha(127);
+	}
+
 	// find the biggest possible centered rect with an aspect ratio of 4:3
 	// that fits within current width and height
 	QRect r = findRect(QRect(0, 0, width(), height()));
@@ -192,11 +202,11 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		painter.setClipRect(-200, -150, 400, 120);
 
 		if (value() < warnValue())
-			painter.setBrush(QBrush(valueColor()));
+			painter.setBrush(QBrush(cv));
 		else if (value() >= warnValue() && value() < alarmValue())
-			painter.setBrush(QBrush(warnColor()));
+			painter.setBrush(QBrush(cw));
 		else
-			painter.setBrush(QBrush(alarmColor()));
+			painter.setBrush(QBrush(ca));
 
 		painter.setPen(Qt::PenStyle());
 		static const int needle[3][2] = {{-10, (int)vcenter}, {0, -130}, {10, (int)vcenter}};
@@ -210,16 +220,24 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		if (_style == StyleBar) {
 			QPen pen;
 			if (value() < warnValue())
-				pen.setColor(valueColor());
+				pen.setColor(cv);
 			else if (value() >= warnValue() && value() < alarmValue())
-				pen.setColor(warnColor());
+				pen.setColor(cw);
 			else
-				pen.setColor(alarmColor());
+				pen.setColor(ca);
 
 			pen.setWidth(15);
 			pen.setCapStyle(Qt::FlatCap);
 			painter.setPen(pen);
 			painter.drawArc(QRectF(-sqrtf(-123 * -123), -123, 2 * sqrtf(-123 * -123), 246), 150 * 16, (int)(-angle * 16));
+
+			if (value() < warnValue())
+				pen.setColor(valueColor());
+			else if (value() >= warnValue() && value() < alarmValue())
+				pen.setColor(warnColor());
+			else
+				pen.setColor(alarmColor());
+			painter.setPen(pen);
 
 			QFont font = painter.font();
 			font.setPixelSize(18);
@@ -239,17 +257,17 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 			warn = 0.333 - warn * 0.333;
 
 			if (_style == StyleFlowGradient) {
-				grad.setColorAt(0, alarmColor());
-				grad.setColorAt(alarm, alarmColor());
-				grad.setColorAt(warn, warnColor());
-				grad.setColorAt(0.333, valueColor());
+				grad.setColorAt(0, ca);
+				grad.setColorAt(alarm, ca);
+				grad.setColorAt(warn, cw);
+				grad.setColorAt(0.333, cv);
 			} else {
-				grad.setColorAt(0, alarmColor());
-				grad.setColorAt(alarm - 0.000000000001, alarmColor());
-				grad.setColorAt(alarm, warnColor());
-				grad.setColorAt(warn - 0.0000000000001, warnColor());
-				grad.setColorAt(warn, valueColor());
-				grad.setColorAt(0.333, valueColor());
+				grad.setColorAt(0, ca);
+				grad.setColorAt(alarm - 0.000000000001, ca);
+				grad.setColorAt(alarm, cw);
+				grad.setColorAt(warn - 0.0000000000001, cw);
+				grad.setColorAt(warn, cv);
+				grad.setColorAt(0.333, cv);
 			}
 
 			QPen pen;
@@ -287,11 +305,11 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		painter.drawRoundedRect(-70, -30, 140, 30 + cornerRadius,  + cornerRadius,  + cornerRadius);
 		QPen pen;
 		if (value() < warnValue())
-			pen.setColor(valueColor());
+			pen.setColor(cv);
 		else if (value() >= warnValue() && value() < alarmValue())
-			pen.setColor(warnColor());
+			pen.setColor(cw);
 		else
-			pen.setColor(alarmColor());
+			pen.setColor(ca);
 		painter.setPen(pen);
 
 		QFont font = painter.font();
