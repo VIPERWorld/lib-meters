@@ -3,6 +3,7 @@
 /libmeters.pro.user
 /release/*
 /debug/*
+/doc/*
 
 /example/Makefile*
 /example/release/*
