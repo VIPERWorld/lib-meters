@@ -111,6 +111,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
+	painter.setRenderHint(QPainter::TextAntialiasing);
 
 	QColor cv = valueColor();
 	QColor cw = warnColor();
@@ -148,22 +149,6 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	painter.translate(0, 60);
 	painter.scale(4.0/3.0, 4.0/3.0);
 
-	// draw start and stop ticks
-	painter.save();
-
-	QFont font = painter.font();
-	font.setPixelSize(14);
-	painter.setFont(font);
-
-	painter.setBrush(palette().windowText());
-	painter.rotate(-60);
-	painter.drawLine(0, -130, 0 , -110);
-	painter.drawText(-15, -105, 30, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(minimum()));
-	painter.rotate(120);
-	painter.drawLine(0, -130, 0 , -110);
-	painter.drawText(-15, -105, 30, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(maximum()));
-	painter.restore();
-
 	// draw minor ticks
 	painter.save();
 	painter.setBrush(palette().windowText());
@@ -180,6 +165,9 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 
 	// draw major ticks
 	painter.save();
+	QFont font = painter.font();
+	font.setPointSize(9);
+	painter.setFont(font);
 	painter.setBrush(palette().windowText());
 	painter.rotate(-60);
 	x = minimum();
@@ -187,6 +175,7 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 	angle = 120 / angle;
 	while (x <= maximum()) {
 		painter.drawLine(0, -130, 0 , -110);
+		painter.drawText(-15, -105, 30, 20, Qt::AlignHCenter | Qt::AlignTop, QString::number(x));
 		painter.rotate(angle);
 		x += majorTicks();
 	}
