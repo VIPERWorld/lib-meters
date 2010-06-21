@@ -125,6 +125,26 @@ void AbstractMeter::setOffset(qreal offset)
 	_offset = offset;
 }
 
+qreal AbstractMeter::refValue() const
+{
+	return _refValue;
+}
+
+void AbstractMeter::setRefValue(qreal val)
+{
+	_refValue = val;
+}
+
+bool AbstractMeter::refEnabled() const
+{
+	return _refEnabled;
+}
+
+void AbstractMeter::setRefEnabled(bool enabled)
+{
+	_refEnabled = enabled;
+}
+
 qreal AbstractMeter::minorTicks() const
 {
 	return _minorTicks;
