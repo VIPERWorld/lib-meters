@@ -325,6 +325,19 @@ void CoilMeter::paintEvent(QPaintEvent *e)
 		painter.drawText(r2, Qt::AlignCenter, "Offset:\n" + QString::number(offset(), 'f', _precision));
 	}
 
+	// paint reference value if enabled
+	if (refEnabled()) {
+		QFont f = painter.font();
+		f.setPixelSize(10);
+		f.setBold(true);
+		painter.setFont(f);
+		QPen pen = painter.pen();
+		pen.setColor(Qt::black);
+		painter.setPen(pen);
+		QRect r2(-135, -30, 65, 30);
+		painter.drawText(r2, Qt::AlignCenter, "Ref:\n" + QString::number(refValue() + offset(), 'f', _precision) + " dB");
+	}
+
 	painter.restore();
 	// draw overlay
 	if (_overlayEnabled) {
