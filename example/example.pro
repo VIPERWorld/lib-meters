@@ -3,10 +3,17 @@
 # -------------------------------------------------
 TARGET = example
 TEMPLATE = app
-DEPENDPATH += ../
-INCLUDEPATH += ../
-LIBS += -L../release \
-    -lmeters
+DEPENDPATH += ../lib
+INCLUDEPATH += ../lib
+
+qtAddLibrary(meters)
+debug{
+    LIBS += -L../lib/debug/
+}
+
+release {
+    LIBS += -L../lib/release/
+}
+
 SOURCES += main.cpp
 HEADERS += main.h
-FORMS += 

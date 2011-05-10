@@ -5,7 +5,6 @@ CONFIG += WARN_ON
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(meters)
 DEFINES += LIBMETERS_LIBRARY
-
 SOURCES += abstractmeter.cpp \
     coilmeter.cpp \
     horizontalmeter.cpp \

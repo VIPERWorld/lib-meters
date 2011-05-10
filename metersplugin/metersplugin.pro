@@ -1,14 +1,21 @@
-CONFIG += designer plugin release
+CONFIG += designer plugin
 TARGET = metersplugin
 TARGET = $$qtLibraryTarget($$TARGET)
 TEMPLATE = lib
 
 DEFINES += LIBMETERS_LIBRARY
 
-INCLUDEPATH += ../
+INCLUDEPATH += ../lib
+qtAddLibrary(meters)
+debug{
+    LIBS += -L../lib/debug/
+}
+
+release {
+    LIBS += -L../lib/release/
+}
 
 QTDIR_build:DESTDIR = $$QT_BUILD_TREE/plugins/designer
-LIBS += -L../release -lmeters
 
 HEADERS = libmetersplugin.h
 SOURCES = libmetersplugin.cpp
