@@ -140,7 +140,6 @@ Widget::Widget(QWidget * parent) : QWidget(parent)
 	timer->start(10);
 }
 
-#include <QDebug>
 void Widget::updateScales()
 {
 	static int degree = 0;
