@@ -11,7 +11,7 @@ namespace DesignerPlugin
 {
 
 class CustomWidgetInterface: public QObject, 
-    public QDesignerCustomWidgetInterface
+        public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
     Q_INTERFACES(QDesignerCustomWidgetInterface)
@@ -45,7 +45,7 @@ private:
 };
 
 class CustomWidgetCollectionInterface: public QObject,
-    public QDesignerCustomWidgetCollectionInterface
+        public QDesignerCustomWidgetCollectionInterface
 {
     Q_OBJECT
     Q_INTERFACES(QDesignerCustomWidgetCollectionInterface)
@@ -66,7 +66,7 @@ class CoilMeterInterface: public CustomWidgetInterface
     Q_INTERFACES(QDesignerCustomWidgetInterface)
 
 public:
-	CoilMeterInterface(QObject *parent);
+    CoilMeterInterface(QObject *parent);
     virtual QWidget *createWidget(QWidget *parent);
 };
 
@@ -76,7 +76,7 @@ class HorizontalMeterInterface: public CustomWidgetInterface
     Q_INTERFACES(QDesignerCustomWidgetInterface)
 
 public:
-	HorizontalMeterInterface(QObject *parent);
+    HorizontalMeterInterface(QObject *parent);
     virtual QWidget *createWidget(QWidget *parent);
 };
 

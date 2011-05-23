@@ -10,18 +10,18 @@
 
 class Widget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	Widget(QWidget *parent);
+    Widget(QWidget *parent);
 private:
-	CoilMeter *needle, *bar, *gradBar, *flowBar;
-	HorizontalMeter *hneedle, *hbar, *hgradBar, *hflowBar;
-	QGridLayout * layout;
-	QVBoxLayout * vlayout;
-	QHBoxLayout *hlayout;
-	QTimer *timer;
+    CoilMeter *needle, *bar, *gradBar, *flowBar;
+    HorizontalMeter *hneedle, *hbar, *hgradBar, *hflowBar;
+    QGridLayout * layout;
+    QVBoxLayout * vlayout;
+    QHBoxLayout *hlayout;
+    QTimer *timer;
 private slots:
-	void updateScales();
+    void updateScales();
 };
 
 #endif // MAIN_H

@@ -46,7 +46,7 @@ QString CustomWidgetInterface::domXml() const
 
 QString CustomWidgetInterface::group() const
 {
-	return "LibMeter Widgets";
+    return "LibMeter Widgets";
 }
 
 QString CustomWidgetInterface::includeFile() const
@@ -83,17 +83,17 @@ void CustomWidgetInterface::initialize(
 CoilMeterInterface::CoilMeterInterface(QObject *parent):
     CustomWidgetInterface(parent)
 {
-	d_name = "CoilMeter";
-	d_include = "coilmeter.h";
-	d_icon = QPixmap(":/images/coilmeter.png");
+    d_name = "CoilMeter";
+    d_include = "coilmeter.h";
+    d_icon = QPixmap(":/images/coilmeter.png");
     d_domXml = 
-		"<widget class=\"CoilMeter\" name=\"coilMeter\">\n"
-        "</widget>\n";
+            "<widget class=\"CoilMeter\" name=\"coilMeter\">\n"
+            "</widget>\n";
 }
 
 QWidget *CoilMeterInterface::createWidget(QWidget *parent)
 {
-	return new CoilMeter(parent);
+    return new CoilMeter(parent);
 }
 
 /************************************************************************/
@@ -101,31 +101,31 @@ QWidget *CoilMeterInterface::createWidget(QWidget *parent)
 HorizontalMeterInterface::HorizontalMeterInterface(QObject *parent):
     CustomWidgetInterface(parent)
 {
-	d_name = "HorizontalMeter";
-	d_include = "horizontalmeter.h";
-	d_icon = QPixmap(":/images/horizontalmeter.png");
-	d_domXml =
-		"<widget class=\"HorizontalMeter\" name=\"horizontalMeter\">\n"
-        "</widget>\n";
+    d_name = "HorizontalMeter";
+    d_include = "horizontalmeter.h";
+    d_icon = QPixmap(":/images/horizontalmeter.png");
+    d_domXml =
+            "<widget class=\"HorizontalMeter\" name=\"horizontalMeter\">\n"
+            "</widget>\n";
 }
 
 QWidget *HorizontalMeterInterface::createWidget(QWidget *parent)
 {
-	return new HorizontalMeter(parent);
+    return new HorizontalMeter(parent);
 }
 
 /***************************************************************/
 
 CustomWidgetCollectionInterface::CustomWidgetCollectionInterface(   
-        QObject *parent): 
+    QObject *parent):
     QObject(parent)
 {
-	d_plugins.append(new CoilMeterInterface(this));
-	d_plugins.append(new HorizontalMeterInterface(this));
+    d_plugins.append(new CoilMeterInterface(this));
+    d_plugins.append(new HorizontalMeterInterface(this));
 }
 
 QList<QDesignerCustomWidgetInterface*> 
-    CustomWidgetCollectionInterface::customWidgets(void) const
+CustomWidgetCollectionInterface::customWidgets(void) const
 {
     return d_plugins;
 }
